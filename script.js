@@ -6,7 +6,7 @@
 
 // Credentials
 const VALID_USERNAME = 'Caleb';
-const VALID_PASSWORD = 'englishforcaleb';
+const VALID_PASSWORD = '01caleb';
 
 // Vocabulary Data
 const vocabularyData = {
@@ -987,4 +987,3 @@ function updateProgress() {
 // ============================================
 
 console.log('%c🎓 English Learning Platform Ready!', 'color: #E63946; font-size: 16px; font-weight: bold;');
-console.log('%cLogin with: Caleb / englishforcaleb', 'color: #FF6B35; font-size: 14px;');
