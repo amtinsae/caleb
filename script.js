@@ -3,11 +3,9 @@
 // Interactive Learning System for Caleb
 // With Complete Grammar Details
 // ============================================
-
 // Credentials
 const VALID_USERNAME = 'Caleb';
 const VALID_PASSWORD = '01caleb';
-
 // Vocabulary Data
 const vocabularyData = {
     animals: [
@@ -75,12 +73,10 @@ const vocabularyData = {
         { word: 'Tree', meaning: 'Tall plant with trunk and leaves', synonym: '—', example: 'The bird sat in the tree.' },
     ]
 };
-
 // ============================================
 // SUPER SIMPLE GRADE 7 GRAMMAR NOTES – ALL TOPICS
 // Short, fun, clear – perfect for class 7
 // ============================================
-
 const grade7Grammar = {
     nouns: {
         title: 'Nouns (Naming Words)',
@@ -109,7 +105,6 @@ const grade7Grammar = {
             }
         ]
     },
-
     verbs: {
         title: 'Verbs (Action or Being Words)',
         definition: 'Shows action or being.',
@@ -135,7 +130,6 @@ const grade7Grammar = {
             }
         ]
     },
-
     adjectives: {
         title: 'Adjectives (Describing Words)',
         definition: 'Tells more about a noun – what kind? how many? which?',
@@ -163,7 +157,6 @@ const grade7Grammar = {
             }
         ]
     },
-
     adverbs: {
         title: 'Adverbs (How / When / Where)',
         definition: 'Describes verb, adjective or another adverb. Many end -ly.',
@@ -190,7 +183,6 @@ const grade7Grammar = {
             }
         ]
     },
-
     pronouns: {
         title: 'Pronouns (Instead of Names)',
         definition: 'Replaces nouns so we don’t repeat.',
@@ -217,7 +209,6 @@ const grade7Grammar = {
             }
         ]
     },
-
     prepositions: {
         title: 'Prepositions (Position Words)',
         definition: 'Shows where, when or how things connect.',
@@ -243,7 +234,6 @@ const grade7Grammar = {
             }
         ]
     },
-
     conjunctions: {
         title: 'Conjunctions (Joining Words)',
         definition: 'Connects words, groups or sentences.',
@@ -269,7 +259,6 @@ const grade7Grammar = {
             }
         ]
     },
-
     tenses: {
         title: 'Tenses (When Action Happens)',
         definition: 'Tells if action is now, before, or later.',
@@ -300,7 +289,6 @@ const grade7Grammar = {
             }
         ]
     },
-
     sentences: {
         title: 'Sentences',
         definition: 'Group of words with complete thought + subject + verb.',
@@ -326,7 +314,6 @@ const grade7Grammar = {
             }
         ]
     },
-
     agreement: {
         title: 'Subject-Verb Agreement',
         definition: 'Verb must match subject (singular/plural).',
@@ -356,9 +343,7 @@ const grade7Grammar = {
         ]
     }
 };
-
 console.log("Full grade 7 grammar cheat sheet – short & powerful!");
-
 console.log("Use this for grade 7 teaching – short, clear & fun!");
 // Quiz Data
 const quizQuestions = [
@@ -373,7 +358,6 @@ const quizQuestions = [
     { type: 'mc', question: 'Which sentence uses a LINKING verb?', options: ['She runs fast.', 'He is tall.', 'They play soccer.', 'I eat pizza.'], answer: 1 },
     { type: 'mc', question: 'What is the comparative form of "big"?', options: ['more big', 'bigger', 'biggest', 'bigly'], answer: 1 },
 ];
-
 const fillInQuestions = [
     { question: 'One child, two _______', answer: 'children' },
     { question: 'She _______ (go) to school every day.', answer: 'goes' },
@@ -384,7 +368,6 @@ const fillInQuestions = [
     { question: 'She is the _______ (tall) girl in class.', answer: 'tallest' },
     { question: 'She runs very _______ (quick).', answer: 'quickly' },
 ];
-
 const synonymQuestions = [
     { word: 'Happy', options: ['Sad', 'Angry', 'Glad', 'Tired'], answer: 2 },
     { word: 'Big', options: ['Small', 'Large', 'Tiny', 'Huge'], answer: 1 },
@@ -392,7 +375,6 @@ const synonymQuestions = [
     { word: 'Beautiful', options: ['Ugly', 'Pretty', 'Dark', 'Bad'], answer: 1 },
     { word: 'Easy', options: ['Simple', 'Hard', 'Difficult', 'Complex'], answer: 0 },
 ];
-
 // Global State
 let userProgress = {
     username: '',
@@ -401,11 +383,9 @@ let userProgress = {
     totalScore: 0,
     topicsMastered: 0,
 };
-
 let currentQuiz = null;
 let currentQuestionIndex = 0;
 let quizScore = 0;
-
 // DOM Elements
 const loginContainer = document.getElementById('loginContainer');
 const dashboardContainer = document.getElementById('dashboardContainer');
@@ -419,17 +399,14 @@ const wordModal = document.getElementById('wordModal');
 const modalBody = document.getElementById('modalBody');
 const closeModal = document.querySelector('.close');
 const userGreeting = document.getElementById('userGreeting');
-
 // ============================================
 // LOGIN FUNCTIONALITY
 // ============================================
-
 loginForm.addEventListener('submit', (e) => {
     e.preventDefault();
     const username = document.getElementById('username').value;
     const password = document.getElementById('password').value;
     const errorMsg = document.getElementById('loginError');
-
     if (username === VALID_USERNAME && password === VALID_PASSWORD) {
         userProgress.username = username;
         errorMsg.classList.remove('show');
@@ -439,13 +416,11 @@ loginForm.addEventListener('submit', (e) => {
         errorMsg.classList.add('show');
     }
 });
-
 logoutBtn.addEventListener('click', () => {
     loginContainer.style.display = 'flex';
     dashboardContainer.style.display = 'none';
     loginForm.reset();
 });
-
 function showDashboard() {
     loginContainer.style.display = 'none';
     dashboardContainer.style.display = 'flex';
@@ -453,34 +428,29 @@ function showDashboard() {
     loadVocabulary('all');
     updateProgress();
 }
-
 // ============================================
 // NAVIGATION
 // ============================================
-
 navButtons.forEach(btn => {
     btn.addEventListener('click', () => {
         const section = btn.getAttribute('data-section');
-        
+       
         // Update active button
         navButtons.forEach(b => b.classList.remove('active'));
         btn.classList.add('active');
-        
+       
         // Update active section
         contentSections.forEach(s => s.classList.remove('active'));
         document.getElementById(section + 'Section').classList.add('active');
     });
 });
-
 // ============================================
 // VOCABULARY FUNCTIONALITY
 // ============================================
-
 function loadVocabulary(category) {
     vocabularyGrid.innerHTML = '';
     let words = [];
     let wordCount = 1;
-
     if (category === 'all') {
         Object.values(vocabularyData).forEach(catWords => {
             words = words.concat(catWords);
@@ -488,16 +458,13 @@ function loadVocabulary(category) {
     } else {
         words = vocabularyData[category] || [];
     }
-
     words.forEach((wordObj, index) => {
         const card = createVocabularyCard(wordObj, wordCount++);
         card.addEventListener('click', () => openWordModal(wordObj));
         vocabularyGrid.appendChild(card);
     });
-
     userProgress.wordsLearned = words.length;
 }
-
 function createVocabularyCard(wordObj, number) {
     const card = document.createElement('div');
     card.className = 'vocabulary-card';
@@ -511,7 +478,6 @@ function createVocabularyCard(wordObj, number) {
     `;
     return card;
 }
-
 function openWordModal(wordObj) {
     modalBody.innerHTML = `
         <h2>${wordObj.word}</h2>
@@ -527,17 +493,14 @@ function openWordModal(wordObj) {
     `;
     wordModal.classList.add('show');
 }
-
 closeModal.addEventListener('click', () => {
     wordModal.classList.remove('show');
 });
-
 wordModal.addEventListener('click', (e) => {
     if (e.target === wordModal) {
         wordModal.classList.remove('show');
     }
 });
-
 filterButtons.forEach(btn => {
     btn.addEventListener('click', () => {
         filterButtons.forEach(b => b.classList.remove('active'));
@@ -546,14 +509,12 @@ filterButtons.forEach(btn => {
         loadVocabulary(category);
     });
 });
-
 // ============================================
 // GRAMMAR MODAL FUNCTIONALITY
 // ============================================
-
 document.addEventListener('DOMContentLoaded', () => {
     const learnButtons = document.querySelectorAll('.learn-btn');
-    
+   
     learnButtons.forEach(btn => {
         btn.addEventListener('click', () => {
             const topic = btn.getAttribute('data-topic');
@@ -561,30 +522,27 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     });
 });
-
 function openGrammarModal(topic) {
-    const data = grammarTopics[topic];
-    
+    const data = grade7Grammar[topic];
+   
     if (!data) return;
-    
+   
     let html = `<h2>${data.title}</h2>`;
     html += `<p style="font-size: 14px; color: #666; margin: 15px 0; font-style: italic;">${data.definition}</p>`;
-    
+   
     data.sections.forEach(section => {
         html += `<div style="margin-top: 25px; padding-top: 20px; border-top: 2px solid #eee;">`;
         html += `<h3 style="color: var(--primary-orange); margin-bottom: 15px;">${section.name}</h3>`;
         html += section.content;
         html += `</div>`;
     });
-    
+   
     modalBody.innerHTML = html;
     wordModal.classList.add('show');
 }
-
 // ============================================
 // QUIZ FUNCTIONALITY
 // ============================================
-
 const startMCQuiz = document.getElementById('startMCQuiz');
 const startFillQuiz = document.getElementById('startFillQuiz');
 const startSynonymQuiz = document.getElementById('startSynonymQuiz');
@@ -594,17 +552,14 @@ const submitAnswerBtn = document.getElementById('submitAnswerBtn');
 const nextQuestionBtn = document.getElementById('nextQuestionBtn');
 const finishQuizBtn = document.getElementById('finishQuizBtn');
 const retakeQuizBtn = document.getElementById('retakeQuizBtn');
-
 startMCQuiz.addEventListener('click', () => startQuiz('mc'));
 startFillQuiz.addEventListener('click', () => startQuiz('fill'));
 startSynonymQuiz.addEventListener('click', () => startQuiz('synonym'));
-
 function startQuiz(type) {
     quizContainer.style.display = 'block';
     quizResults.style.display = 'none';
     currentQuestionIndex = 0;
     quizScore = 0;
-
     if (type === 'mc') {
         currentQuiz = { type: 'mc', questions: quizQuestions.slice(0, 10), title: 'Multiple Choice Quiz' };
     } else if (type === 'fill') {
@@ -612,19 +567,15 @@ function startQuiz(type) {
     } else if (type === 'synonym') {
         currentQuiz = { type: 'synonym', questions: synonymQuestions.slice(0, 10), title: 'Synonym Matching' };
     }
-
     document.getElementById('quizTitle').textContent = currentQuiz.title;
     document.getElementById('totalQuestions').textContent = currentQuiz.questions.length;
     displayQuestion();
 }
-
 function displayQuestion() {
     const question = currentQuiz.questions[currentQuestionIndex];
     const quizContent = document.getElementById('quizContent');
     document.getElementById('questionNumber').textContent = currentQuestionIndex + 1;
-
     quizContent.innerHTML = '';
-
     if (currentQuiz.type === 'mc') {
         quizContent.innerHTML = `
             <h4>${question.question}</h4>
@@ -656,12 +607,10 @@ function displayQuestion() {
             </div>
         `;
     }
-
     submitAnswerBtn.style.display = 'inline-block';
     nextQuestionBtn.style.display = 'none';
     finishQuizBtn.style.display = 'none';
 }
-
 function selectOption(index) {
     const options = document.querySelectorAll('.quiz-option');
     options.forEach((opt, idx) => {
@@ -669,11 +618,9 @@ function selectOption(index) {
         opt.querySelector('input').checked = idx === index;
     });
 }
-
 submitAnswerBtn.addEventListener('click', () => {
     const question = currentQuiz.questions[currentQuestionIndex];
     let isCorrect = false;
-
     if (currentQuiz.type === 'fill') {
         const answer = document.getElementById('fillAnswer').value.trim().toLowerCase();
         isCorrect = answer === question.answer.toLowerCase();
@@ -683,11 +630,9 @@ submitAnswerBtn.addEventListener('click', () => {
             isCorrect = parseInt(selected.value) === question.answer;
         }
     }
-
     if (isCorrect) {
         quizScore++;
     }
-
     currentQuestionIndex++;
     if (currentQuestionIndex < currentQuiz.questions.length) {
         submitAnswerBtn.style.display = 'none';
@@ -697,67 +642,54 @@ submitAnswerBtn.addEventListener('click', () => {
         finishQuizBtn.style.display = 'inline-block';
     }
 });
-
 nextQuestionBtn.addEventListener('click', () => {
     displayQuestion();
 });
-
 finishQuizBtn.addEventListener('click', () => {
     showQuizResults();
 });
-
 function showQuizResults() {
     quizContainer.style.display = 'none';
     quizResults.style.display = 'block';
-
     const percentage = Math.round((quizScore / currentQuiz.questions.length) * 100);
     document.getElementById('scoreSpan').textContent = percentage;
-
     let message = '';
     if (percentage >= 90) message = 'Outstanding! You\'re a master! 🌟';
     else if (percentage >= 80) message = 'Great job! Keep it up! 👏';
     else if (percentage >= 70) message = 'Good effort! Practice more! 💪';
     else if (percentage >= 60) message = 'Not bad! Review the material! 📚';
     else message = 'Keep practicing! You\'ll improve! 🚀';
-
     document.getElementById('resultsMessage').textContent = message;
-
     userProgress.quizzesCompleted++;
     userProgress.totalScore += percentage;
     updateProgress();
 }
-
 retakeQuizBtn.addEventListener('click', () => {
     quizResults.style.display = 'none';
     startQuiz(currentQuiz.type === 'mc' ? 'mc' : currentQuiz.type === 'fill' ? 'fill' : 'synonym');
 });
-
 // ============================================
 // PROGRESS TRACKING
 // ============================================
-
 function updateProgress() {
     document.getElementById('wordsLearned').textContent = userProgress.wordsLearned;
     document.getElementById('quizzesCompleted').textContent = userProgress.quizzesCompleted;
-    
-    const avgScore = userProgress.quizzesCompleted > 0 
+   
+    const avgScore = userProgress.quizzesCompleted > 0
         ? Math.round(userProgress.totalScore / userProgress.quizzesCompleted)
         : 0;
     document.getElementById('averageScore').textContent = avgScore + '%';
-    
+   
     document.getElementById('topicsMastered').textContent = userProgress.topicsMastered;
-
     // Generate Achievement Badges
     const achievementContainer = document.getElementById('achievementBadges');
     achievementContainer.innerHTML = '';
-
     const achievements = [
         { emoji: '🎯', name: 'Quiz Master', unlocked: userProgress.quizzesCompleted >= 5 },
         { emoji: '📚', name: 'Word Collector', unlocked: userProgress.wordsLearned >= 50 },
         { emoji: '⭐', name: 'Star Learner', unlocked: avgScore >= 80 },
         { emoji: '🏆', name: 'Champion', unlocked: userProgress.quizzesCompleted >= 10 },
     ];
-
     achievements.forEach(ach => {
         const badge = document.createElement('div');
         badge.className = `badge ${ach.unlocked ? '' : 'locked'}`;
@@ -766,9 +698,7 @@ function updateProgress() {
         achievementContainer.appendChild(badge);
     });
 }
-
 // ============================================
 // INITIALIZATION
 // ============================================
-
 console.log('%c🎓 English Learning Platform Ready!', 'color: #E63946; font-size: 16px; font-weight: bold;');
